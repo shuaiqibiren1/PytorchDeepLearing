@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segmentation Demo</title>
+    <style>
+        /* CSS 样式 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; 
+            margin: 0;
+            padding: 20px;
+            background-image: url("static/background.jpg") no-repeat center center fixed; /* 替换 'background.jpg' 为你的背景图像文件路径 */
+            background-size: cover; /* 使背景图像覆盖整个页面 */
+            background-repeat: no-repeat;  /* 禁止背景图像重复 */
+        }
+
+
+        h1 {
+            font-size: 36px; /* 设置标题字体大小 */
+            text-align: center; /* 居中标题 */
+            margin-bottom: 20px; /* 设置标题下边距 */
+        }
+
+        #uploadForm {
+            margin-bottom: 20px; /* 设置表单下边距 */
+            text-align: center; /* 居中表单内容 */
+        }
+
+        .file-input {
+            display: none; /* 隐藏文件输入框 */
+        }
+
+        .file-label {
+            background-color: #4CAF50; /* 设置文件选择按钮背景颜色 */
+            color: white; /* 设置文字颜色 */
+            padding: 15px 20px; /* 设置内边距 */
+            text-align: center; /* 居中文字 */
+            font-size: 24px; /* 设置字体大小 */
+            display: inline-block; /* 设置为行内块级元素 */
+            cursor: pointer; /* 鼠标悬停样式 */
+            border-radius: 5px; /* 设置圆角 */
+            transition: background-color 0.3s; /* 添加过渡效果 */
+        }
+
+        .file-label:hover {
+            background-color: #45a049; /* 设置悬停时的背景颜色 */
+        }
+
+        #uploadBtn {
+            background-color: #008CBA; /* 设置上传按钮背景颜色 */
+            color: white; /* 设置文字颜色 */
+            border: none; /* 去掉边框 */
+            padding: 15px 20px; /* 设置内边距 */
+            font-size: 24px; /* 设置字体大小 */
+            border-radius: 5px; /* 设置圆角 */
+            cursor: pointer; /* 鼠标悬停样式 */
+            transition: background-color 0.3s; /* 添加过渡效果 */
+        }
+
+        #uploadBtn:hover {
+            background-color: #006080; /* 设置悬停时的背景颜色 */
+        }
+
+        .action-btn {
+            background-color: #4CAF50; /* 设置操作按钮背景颜色 */
+            color: white; /* 设置文字颜色 */
+            border: none; /* 去掉边框 */
+            padding: 10px 15px; /* 设置内边距 */
+            font-size: 20px; /* 设置字体大小 */
+            border-radius: 5px; /* 设置圆角 */
+            cursor: pointer; /* 鼠标悬停样式 */
+            margin-right: 10px; /* 设置右边距 */
+            transition: background-color 0.3s; /* 添加过渡效果 */
+        }
+
+        .action-btn:hover {
+            background-color: #45a049; /* 设置悬停时的背景颜色 */
+        }
+
+        /* 新增样式 */
+        #fileName {
+            border: 2px solid #4CAF50; /* 设置边框样式 */
+            border-radius: 5px; /* 设置边框圆角 */
+            padding: 5px 10px; /* 添加内边距 */
+            font-size: 20px; /* 设置字体大小 */
+            display: inline-block; /* 设置为行内块级元素 */
+        }
+    </style>
+</head>
+<body>
+    <h1>Segmentation Demo</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <label for="fileInput" class="file-label">Choose File</label>
+        <input id="fileInput" type="file" class="file-input" name="file" onchange="updateFileName()">
+        <div id="fileName" style="margin-top: 10px; text-align: center;"></div>
+        <button id="uploadBtn" type="button" onclick="processFile()">Upload File</button>
+    </form>
+    <br>
+    <button class="action-btn" onclick="downloadResult()">Download Result</button>
+    <button class="action-btn" onclick="visualizeResult()">Visualize Result</button>
+    <script>
+        // JavaScript 代码
+        function processFile() {
+            var form = document.getElementById('uploadForm');
+            var formData = new FormData(form);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/process');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    alert('File uploaded successfully! Segmentation process completed.');
+                } else {
+                    alert('Error processing file!');
+                }
+            };
+            xhr.send(formData);
+        }
+
+        function downloadResult() {
+            // 创建一个隐藏的 <a> 元素
+            var link = document.createElement('a');
+            link.href = '/download?file=result.nii';
+            link.style.display = 'none';
+            document.body.appendChild(link);
+
+            // 模拟点击这个链接，触发文件下载
+            link.click();
+
+            // 移除这个 <a> 元素
+            document.body.removeChild(link);
+        }
+
+        function visualizeResult() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/visualization');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    alert('Visualization completed successfully!');
+                } else {
+                    alert('Error performing visualization!');
+                }
+            };
+            xhr.send();
+        }
+
+        function updateFileName() {
+            var input = document.getElementById('fileInput');
+            var fileName = document.getElementById('fileName');
+            fileName.innerText = input.files[0].name;
+        }
+    </script>
+</body>
+</html>
