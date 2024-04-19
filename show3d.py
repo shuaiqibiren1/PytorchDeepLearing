@@ -6,12 +6,12 @@ import scipy.ndimage as ndimg
 
 # 加载 NIfTI 文件
 # nii = nib.load("dataset\Mask\mr_train_1002.nii")
-maskpathname = "dataset\Mask\mr_train_1002.nii"
+# maskpathname = "dataset\Mask\mr_train_1002.nii"
 # 需要添加一部分来导入uploads中的数据
-# datapath = "data/uploads/Image"
-# maskpath = "data/uploads/Mask"
-# image_path_list = file_name_path(datapath, False, True)
-# maskpathname = maskpath + "/" + image_path_list[0]
+datapath = "data/uploads/Image"
+maskpath = "data/uploads/Mask"
+image_path_list = file_name_path(datapath, False, True)
+maskpathname = maskpath + "/" + "result.nii"
 nii = nib.load(maskpathname)
 
 # nii = nib.load('myvi/data/patient2_LGE_manual.nii')
