@@ -1,32 +1,23 @@
-# PytorchDeepLearing
+# 图像分割模型
+> 有一些3D图像分割和2D图像分割的模型网络
 
-# ImageSegment Model
-> There are some Model NetWorks of 3D ImageSegment and 2D ImageSegment
+## 图像分割网络
+> 有2D和3D版本的Vnet
 
-## ImageSegment Nets
-> There are Unet and Vnet Family all has 2d and 3d version.
+# 图像分割损失函数
+> 有一些3D图像分割和2D图像分割的损失函数
 
-# ImageSegment Loss Function
-> There are some loss functions of 3D ImageSegment and 2D ImageSegment
+## 如何使用
+我们使用了pytorch1.10.0重新实现了图像分割损失函数
 
-## How to Use
-i have reimplemented the image segmentation loss functions with pytorch1.10.0
+有二元交叉熵、dice损失、focal损失等，都有2D和3D版本。
 
-there are binary_crossentropy,dice_loss,focal_loss_sigmod etc all has 2d and 3d version.
+有分类交叉熵损失、dice损失、focal损失等，都有2D和3D版本。
 
-there are categorical loss functions of crossentropy,dice_loss,focal_loss etc all has 2d and 3d version.
+用于计算图像相似性的MS-SSIM损失和SSIM损失。
 
-MS-SSIM loss and SSIM loss for calculating image similarity.
+用于血管分割的中心线dice损失。
 
-centerline dice loss for vessel segmentation
+有9种分割度量，包括dice、表面距离、jaccard、VOE、RVD、FNR、FPR、ASSD、RMSD、MSD等。
 
-there are 9 type of segment metric,including dice,surface disatance,jaccard,VOE,RVD,FNR,FPR,ASSD,RMSD,MSD,etc.
-
-flask_app.py is the demo example of the Flask Deep Learning Segmentation Model Service Deployment.
-
-## Contact
-* https://github.com/junqiangchen
-* email: 1207173174@qq.com
-* WeChat Public number: 最新医学影像技术
-"# PytorchDeepLearing" 
-
+flask_app.py是Flask深度学习分割模型服务部署的demo实例
